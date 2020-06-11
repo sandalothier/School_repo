@@ -1,0 +1,60 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="pays">
+            <h2><span jhiTranslate="schoolApp.pays.detail.title">Pays</span> {{ pays.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="schoolApp.pays.nomPays">Nom Pays</span></dt>
+                <dd>
+                    <span>{{ pays.nomPays }}</span>
+                </dd>
+                <dt><span jhiTranslate="schoolApp.pays.superficie">Superficie</span></dt>
+                <dd>
+                    <span>{{ pays.superficie }}</span>
+                </dd>
+                <dt><span jhiTranslate="schoolApp.pays.sigleAuto">Sigle Auto</span></dt>
+                <dd>
+                    <span>{{ pays.sigleAuto }}</span>
+                </dd>
+                <dt><span jhiTranslate="schoolApp.pays.capitale">Capitale</span></dt>
+                <dd>
+                    <span>{{ pays.capitale }}</span>
+                </dd>
+                <dt><span jhiTranslate="schoolApp.pays.monnaie">Monnaie</span></dt>
+                <dd>
+                    <div *ngIf="pays.monnaie">
+                        <a [routerLink]="['/monnaie', pays.monnaie?.id, 'view']">{{ pays.monnaie?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="schoolApp.pays.continent">Continent</span></dt>
+                <dd>
+                    <div *ngIf="pays.continent">
+                        <a [routerLink]="['/continent', pays.continent?.id, 'view']">{{ pays.continent?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="schoolApp.pays.regroupementRegional">Regroupement Regional</span></dt>
+                <dd>
+                    <div *ngIf="pays.regroupementRegional">
+                        <a [routerLink]="['/regroupement-regional', pays.regroupementRegional?.id, 'view']">{{ pays.regroupementRegional?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/pays', pays.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+{
+  "schoolApp": {
+    "monnaie": {
+      "home": {
+        "title": "Monnaies",
+        "createLabel": "Créer un nouveau Monnaie",
+        "createOrEditLabel": "Créer ou éditer un Monnaie",
+        "notFound": "Aucun Monnaie trouvé"
+      },
+      "created": "Un nouveau Monnaie a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Monnaie avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Monnaie avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Monnaie {{ id }} ?"
+      },
+      "detail": {
+        "title": "Monnaie"
+      },
+      "monnaie": "Monnaie",
+      "sigle": "Sigle",
+      "pays": "Pays"
+    }
+  }
+}

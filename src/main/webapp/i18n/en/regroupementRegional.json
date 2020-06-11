@@ -1,0 +1,25 @@
+{
+  "schoolApp": {
+    "regroupementRegional": {
+      "home": {
+        "title": "Regroupement Regionals",
+        "createLabel": "Create a new Regroupement Regional",
+        "createOrEditLabel": "Create or edit a Regroupement Regional",
+        "notFound": "No Regroupement Regionals found"
+      },
+      "created": "A new Regroupement Regional is created with identifier {{ param }}",
+      "updated": "A Regroupement Regional is updated with identifier {{ param }}",
+      "deleted": "A Regroupement Regional is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Regroupement Regional {{ id }}?"
+      },
+      "detail": {
+        "title": "Regroupement Regional"
+      },
+      "sigle": "Sigle",
+      "nomRegroupement": "Nom Regroupement",
+      "pays": "Pays",
+      "pays": "Pays"
+    }
+  }
+}

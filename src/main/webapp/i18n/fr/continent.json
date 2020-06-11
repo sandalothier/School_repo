@@ -1,0 +1,24 @@
+{
+  "schoolApp": {
+    "continent": {
+      "home": {
+        "title": "Continents",
+        "createLabel": "Créer un nouveau Continent",
+        "createOrEditLabel": "Créer ou éditer un Continent",
+        "notFound": "Aucun Continent trouvé"
+      },
+      "created": "Un nouveau Continent a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Continent avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Continent avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Continent {{ id }} ?"
+      },
+      "detail": {
+        "title": "Continent"
+      },
+      "nomContinent": "Nom Continent",
+      "superficie": "Superficie",
+      "pays": "Pays"
+    }
+  }
+}

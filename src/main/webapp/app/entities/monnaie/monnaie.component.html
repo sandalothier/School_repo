@@ -1,0 +1,63 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="schoolApp.monnaie.home.title">Monnaies</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-monnaie" [routerLink]="['/monnaie/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="schoolApp.monnaie.home.createLabel">
+            Create a new Monnaie
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="monnaies?.length === 0">
+        <span jhiTranslate="schoolApp.monnaie.home.notFound">No monnaies found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="monnaies && monnaies.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+                    <th scope="col" ><span jhiTranslate="schoolApp.monnaie.monnaie">Monnaie</span></th>
+                    <th scope="col" ><span jhiTranslate="schoolApp.monnaie.sigle">Sigle</span></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let monnaie of monnaies ;trackBy: trackId">
+                    <td><a [routerLink]="['/monnaie', monnaie.id, 'view']">{{ monnaie.id }}</a></td>
+                    <td>{{ monnaie.monnaie }}</td>
+                    <td>{{ monnaie.sigle }}</td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/monnaie', monnaie.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/monnaie', monnaie.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(monnaie)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

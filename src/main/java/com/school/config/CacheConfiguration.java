@@ -50,6 +50,15 @@ public class CacheConfiguration {
             createCache(cm, com.school.domain.User.class.getName());
             createCache(cm, com.school.domain.Authority.class.getName());
             createCache(cm, com.school.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.school.domain.Continent.class.getName());
+            createCache(cm, com.school.domain.Continent.class.getName() + ".pays");
+            createCache(cm, com.school.domain.Pays.class.getName());
+            createCache(cm, com.school.domain.Pays.class.getName() + ".regions");
+            createCache(cm, com.school.domain.Pays.class.getName() + ".regroupementRegionals");
+            createCache(cm, com.school.domain.RegroupementRegional.class.getName());
+            createCache(cm, com.school.domain.RegroupementRegional.class.getName() + ".pays");
+            createCache(cm, com.school.domain.Regions.class.getName());
+            createCache(cm, com.school.domain.Monnaie.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }
