@@ -1,0 +1,40 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="regroupementRegional">
+            <h2><span jhiTranslate="schoolApp.regroupementRegional.detail.title">Regroupement Regional</span> {{ regroupementRegional.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="schoolApp.regroupementRegional.sigle">Sigle</span></dt>
+                <dd>
+                    <span>{{ regroupementRegional.sigle }}</span>
+                </dd>
+                <dt><span jhiTranslate="schoolApp.regroupementRegional.nomRegroupement">Nom Regroupement</span></dt>
+                <dd>
+                    <span>{{ regroupementRegional.nomRegroupement }}</span>
+                </dd>
+                <dt><span jhiTranslate="schoolApp.regroupementRegional.pays">Pays</span></dt>
+                <dd>
+                    <div *ngIf="regroupementRegional.pays">
+                        <a [routerLink]="['/pays', regroupementRegional.pays?.id, 'view']">{{ regroupementRegional.pays?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/regroupement-regional', regroupementRegional.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

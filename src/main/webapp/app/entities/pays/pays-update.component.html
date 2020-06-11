@@ -1,0 +1,74 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-pays-heading" jhiTranslate="schoolApp.pays.home.createOrEditLabel">Create or edit a Pays</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="schoolApp.pays.nomPays" for="field_nomPays">Nom Pays</label>
+                    <input type="text" class="form-control" name="nomPays" id="field_nomPays"
+                           formControlName="nomPays"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="schoolApp.pays.superficie" for="field_superficie">Superficie</label>
+                    <input type="number" class="form-control" name="superficie" id="field_superficie"
+                           formControlName="superficie"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="schoolApp.pays.sigleAuto" for="field_sigleAuto">Sigle Auto</label>
+                    <input type="text" class="form-control" name="sigleAuto" id="field_sigleAuto"
+                           formControlName="sigleAuto"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="schoolApp.pays.capitale" for="field_capitale">Capitale</label>
+                    <input type="text" class="form-control" name="capitale" id="field_capitale"
+                           formControlName="capitale"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="schoolApp.pays.monnaie" for="field_monnaie">Monnaie</label>
+                    <select class="form-control" id="field_monnaie" name="monnaie" formControlName="monnaie">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="monnaieOption.id === editForm.get('monnaie')!.value?.id ? editForm.get('monnaie')!.value : monnaieOption" *ngFor="let monnaieOption of monnaies; trackBy: trackById">{{ monnaieOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="schoolApp.pays.continent" for="field_continent">Continent</label>
+                    <select class="form-control" id="field_continent" name="continent" formControlName="continent">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="continentOption.id === editForm.get('continent')!.value?.id ? editForm.get('continent')!.value : continentOption" *ngFor="let continentOption of continents; trackBy: trackById">{{ continentOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="schoolApp.pays.regroupementRegional" for="field_regroupementRegional">Regroupement Regional</label>
+                    <select class="form-control" id="field_regroupementRegional" name="regroupementRegional" formControlName="regroupementRegional">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="regroupementRegionalOption.id === editForm.get('regroupementRegional')!.value?.id ? editForm.get('regroupementRegional')!.value : regroupementRegionalOption" *ngFor="let regroupementRegionalOption of regroupementregionals; trackBy: trackById">{{ regroupementRegionalOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
