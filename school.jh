@@ -1,0 +1,707 @@
+enum SituationMatrimoniale {
+	MARIE, CELIBATAIRE, DIVORCE, VEUF, CONCUBINAGE
+}
+enum TypeDeContrat {
+	CONTRACTUEL, DUREE_DETERMINEE, DUREE_INDETERMINEE, HORS_BUDGET
+}
+enum TypeDocument {
+	LIVRE, MEMOIRE, RECEUIL, ANNALE, BROCHURE, DICTIONNAIRE, ENCYCLOPEDIE
+}
+enum EtatDocument {
+	BON, USE, SALI
+}
+enum ModePaiement {
+	CAISSE, PAIEMENT_ELECTONIQUE
+}
+enum Statut {
+	NOUVEAU, DOUBLANT
+}
+/**
+ * Etablissement entity.
+ * @author sanda
+ * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
+ à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
+ le Demandé
+ */
+entity Etablissement {
+    nomEtablissement String,
+	logo String,
+	responsable String,
+	email String,
+	devise String
+}
+/**
+ * Succursale entity.
+ * @author sanda
+ * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
+ à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
+ le Demandé
+ */
+entity Succursale {
+	responsableSuccursale String,
+    adresse String,
+	contact String,
+	gsm String
+}
+/**
+ * AnneeScolaire entity.
+ * @author sanda
+ *   C'est à partir de cette table que yout le processus commence
+ */
+entity AnneeScolaire {
+    intituleAnneeScolaire String,
+	debut Date,
+	fin Date
+}
+/**
+ * Retard entity.
+ * @author sanda
+ *   C'est à partir de cette table que yout le processus commence
+ */
+entity Retard {
+	jourRetard Date,
+	nbreHeure Integer
+}
+/**
+ * Abscence entity.
+ * @author sanda
+ *   C'est à partir de cette table que yout le processus commence
+ */
+entity Abscence {
+	jourAbsence Date
+}
+/**
+ * Punition entity.
+ * @author sanda
+ *   C'est à partir de cette table que yout le processus commence
+ */
+entity Punition {
+	jourPunition Date,
+    nbreHeurePunition Integer
+}
+/**
+ * DecoupageAnneeScolaire entity.
+ * @author sanda
+ *   C'est l'ensemble des découpage de l'année scolaire pour la plupart du temps elle sont 
+ sanctionnées par des évaluations
+ */
+entity DecoupageAnneeScolaire {
+    intituleDecoupageAnneeScolaire String,
+	debut Date,
+	fin Date
+}
+/**
+ * ProgrammeCours entity.
+ * @author sanda
+ * C'est l'ensemble des chapitres avec leur sous chapitre que l'enseignant est censé délivrer au cours d'une année scolaire
+ */
+entity ProgrammeCours {
+    intitule String
+}
+/**
+ * DecoupageHoraire entity.
+ * @author sanda
+ * C'est le découpage des tranches horaires constituant les unités de cours
+ */
+entity DecoupageHoraire {
+	heureDebut Date,
+	heureFin String
+}
+/**
+ * EmploiDuTempsSalleCours entity.
+ * @author sanda
+ * C'est l'emploi du temps relatif à chaque salle de cours
+ */
+entity EmploiDuTempsSalleCours {
+	nomHoraire String
+}
+/**
+ * Eleve entity.
+ * @author sanda
+ *   C'est l'ensemble des titre que peux prendre un personnel
+ */
+entity Eleve {
+    civilite String,
+	nomPersonnel String,
+	prenomsPersonnel String,
+	dateNaissance Date,
+	lieuNaissance String,
+	numeroMatricule String,
+	email String,
+	bp String,
+	gsm String,
+	adresse String
+}
+/**
+ * ParentEleve entity.
+ * @author sanda
+ *   C'est l'ensemble des titre que peux prendre un personnel
+ */
+entity ParentEleve {
+    civilite String,
+	nomPersonnel String,
+	prenomsPersonnel String,
+	email String,
+	bp String,
+	gsm String,
+	adresse String
+}
+/**
+ * Enseignant entity.
+ * @author sanda
+ *   C'est l'ensemble des titre que peux prendre un personnel
+ */
+entity Enseignant {
+    civilite String,
+	situationMatrimoniale SituationMatrimoniale,
+	nomPersonnel String,
+	prenomsPersonnel String,
+	dateNaissance Date,
+	lieuNaissance String,
+    typeContrat TypeDeContrat
+	numeroMatricule String,
+	email String,
+	bp String,
+	gsm String,
+	adresse String
+}
+/**
+ * EnteteCommandeFournisseur entity.
+ * @author sanda
+ * Si l'apprenant est un nouveau le montant des inscriptions apparait
+ */
+entity Scolarite {
+    montantScolarite Double,
+	montantInscription Double
+}
+/**
+ * Caisse entity.
+ * @author sanda
+ * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
+ à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
+ le Demandé
+ */
+entity Caisse {
+    nomCaisse String
+}
+/**
+ * Paiement entity.
+ * @author sanda
+ * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
+ à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
+ le Demandé
+ */
+entity Paiement {
+	modePaiement ModePaiement,
+    datePaiement Date,
+	numeroRecu String,
+	MontantPaiement Double
+}
+/**
+ * CommandeFournisseur entity.
+ * @author sanda
+ * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
+ à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
+ le Demandé
+ */
+entity ParticipantActiviteExtraScolaire {
+    interieurEtablissement Boolean,
+	autorisationParentale Boolean
+}
+/**
+ * CommandeFournisseur entity.
+ * @author sanda
+ * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
+ à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
+ le Demandé
+ */
+entity ReunionParentEleve {
+    dateReunion Date,
+	ordreJour String,
+	rapportReunion String
+}
+/**
+ * CommandeFournisseur entity.
+ * @author sanda
+ * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
+ à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
+ le Demandé
+ */
+entity PresenceReunion {
+    
+}
+/**
+ * CommandeFournisseur entity.
+ * @author sanda
+ * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
+ à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
+ le Demandé
+ */
+entity ConseilClasse {
+    moyenneReussite Double,
+	moyenneExclu Double
+}
+/**
+ * CommandeFournisseur entity.
+ * @author sanda
+ * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
+ à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
+ le Demandé
+ */
+entity ListeAdditif {
+    nom String,
+	prenoms String,
+	statut Statut
+}
+/**
+ * CommandeFournisseur entity.
+ * @author sanda
+ * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
+ à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
+ le Demandé
+ */
+entity EtablissementComposant {
+    nomEtablissement String
+}
+/**
+ * CommandeFournisseur entity.
+ * @author sanda
+ * Le calcul du salaire se fera en faisant le taux horaire fois le volume horaire mensuel - taux horairex nombre d'heure de retard
+ */
+entity Salaire {
+    tauxHoraire Double,
+	prime Double
+}
+/**
+ * CommandeFournisseur entity.
+ * @author sanda
+ * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
+ à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
+ le Demandé
+ */
+entity Contrat {
+	typeContrat TypeDeContrat,
+	dateDebutContrat Date,
+	dateFinContrat Date
+}
+/**
+ * Tranches entity.
+ * @author sanda
+ * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
+ à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
+ le Demandé
+ */
+entity Tranches {
+    datePaiement Date,
+	nomTranche String,
+	montant Double
+}
+/**
+ * Bibliotheque entity.
+ * @author sanda
+ * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
+ à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
+ le Demandé
+ */
+entity Bibliotheque {
+    nomBibliotheque String
+}
+/**
+ * RayonBibliotheque entity.
+ * @author sanda
+ * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
+ à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
+ le Demandé
+ */
+entity RayonBibliotheque {
+    nomRayon String,
+	description String
+}
+/**
+ * ActiviteExtraScolaire entity.
+ * @author sanda
+ * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
+ à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
+ le Demandé
+ */
+entity ActiviteExtraScolaire {
+    dateActivite Date,
+	lieu String,
+	participation Integer
+}
+/**
+ * Logistique entity.
+ * @author sanda
+ * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
+ à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
+ le Demandé
+ */
+entity Logistique {
+    quantite Integer
+}
+/**
+ * Equipement entity.
+ * @author sanda
+ * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
+ à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
+ le Demandé
+ */
+entity Equipement {
+    nomEquipement String
+}
+/**
+ * Document entity.
+ * @author sanda
+ * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
+ à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
+ le Demandé
+ */
+entity Document {
+	refBibliotheque String,
+    typeDocument TypeDocument,
+	titre String,
+	auteur String,
+	edition String,
+	annee Date
+}
+/**
+ * LocationDocument entity.
+ * @author sanda
+ * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
+ à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
+ le Demandé
+ */
+entity LocationDocument {
+    dateLocation Date,
+	duree Integer,
+	dateRetour Date
+}
+/**
+ * RetourDocument entity.
+ * @author sanda
+ * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
+ à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
+ le Demandé
+ */
+entity RetourDocument {
+    dateRetour Date,
+	etatDocument EtatDocument,
+	penalite String,
+	valideRetour Boolean
+}
+/**
+ * PersonnelAdministratif entity.
+ * @author sanda
+ *   C'est l'ensemble des titre que peux prendre un personnel
+ */
+entity PersonnelAdministratif {
+    civilite String,
+	nomPersonnel String,
+	prenomsPersonnel String,
+	dateNaissance Date,
+	lieuNaissance String,
+    situationMatrimoniale SituationMatrimoniale,
+    typeContrat TypeDeContrat
+	numeroMatricule String,
+	email String,
+	bp String,
+	gsm String,
+	adresse String
+}
+/**
+ * Matiere entity.
+ * @author sanda
+ *   C'est l'ensemble des titre que peux prendre un personnel
+ */
+entity Matiere {
+    intituleMatiere String
+}
+/**
+ * Cours entity.
+ * @author sanda
+ *   C'est l'ensemble des titre que peux prendre un personnel
+ */
+entity Cours {
+    titreCours String,
+	cours String,
+	fichierJoint String
+}
+/**
+ * Epreuve entity.
+ * @author sanda
+ * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
+ à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
+ le Demandé
+ */
+entity Epreuve {
+    epreuve String
+}
+/**
+ * SalleClasse entity.
+ * @author sanda
+ *   C'est le batiment physique faisant office de lieu où les cours sont dispensés
+ Agora 500, amphi 1000, salle socrate, laboratoire
+ */
+entity SalleClasse {
+    nomClasse String
+}
+/**
+ * SalleCours entity.
+ * @author sanda
+ *   C'est le niveau d'étude qui regroupe certe les élèves d'un même niveau mais 
+ aussi faisant les cours ensemble et ayant les mêmes professeurs
+ exemple: 5A, 2CD1, 3année de droit etc
+ */
+entity SalleCours {
+    nomsalleCours String,
+	effectifMax Integer,
+	nombreTableBanc Integer
+}
+/**
+ * NiveauEtude entity.
+ * @author sanda
+ *   C'est l'ensemble des niveau qui existe dans une structure
+ exemple: CEI1, CP1,CM1, Terminale, Première année droit etc
+ */
+entity NiveauEtude {
+    niveau String
+}
+/**
+ * ListeEvaluation entity.
+ * @author sanda
+ *   C'est l'ensemble des titre que peux prendre un personnel
+ */
+entity ListeEvaluation {
+    intituleMatiere String
+}
+/**
+ * MatiereCoef entity.
+ * @author sanda
+ *   C'est l'ensemble des titre que peux prendre un personnel
+ */
+entity MatiereCoef {
+    coef Double
+}
+/**
+ * NoteEvaluation entity.
+ * @author sanda
+ *   C'est l'ensemble des titre que peux prendre un personnel
+ */
+entity NoteEvaluation {
+    note Double,
+	appreciation String
+}
+relationship OneToMany {
+	AnneeScolaire to DecoupageAnneeScolaire
+}
+relationship OneToMany {
+	User to Etablissement
+}
+relationship OneToOne {
+	User to Authority
+}
+relationship OneToOne {
+	Succursale to ActiviteExtraScolaire
+}
+relationship OneToMany {
+	AnneeScolaire to PersonnelAdministratif
+}
+relationship OneToMany {
+	AnneeScolaire to Eleve
+}
+relationship OneToMany {
+	AnneeScolaire to Enseignant
+}
+relationship OneToMany {
+	ParentEleve to Eleve
+}
+relationship OneToMany {
+	Eleve to ParentEleve
+}
+relationship OneToMany {
+	Eleve to SalleCours
+}
+relationship OneToMany {
+	SalleCours to NiveauEtude
+}
+relationship OneToMany {
+	SalleCours to Enseignant
+}
+relationship OneToMany {
+	Enseignant to SalleCours
+}
+relationship OneToMany {
+	Enseignant to Matiere
+}
+relationship OneToMany {
+	Matiere to Enseignant
+}
+relationship OneToMany {
+	SalleClasse to SalleCours
+}
+relationship OneToMany {
+	SalleCours to SalleClasse
+}
+relationship OneToMany {
+	ListeEvaluation to ListeEvaluation
+}
+relationship OneToMany {
+	DecoupageAnneeScolaire to ListeEvaluation
+}
+relationship OneToMany {
+	NiveauEtude to NiveauEtude
+}
+relationship OneToMany {
+	ProgrammeCours to Cours
+}
+relationship OneToMany {
+	MatiereCoef to NiveauEtude
+}
+relationship OneToMany {
+	MatiereCoef to Matiere
+}
+relationship OneToMany {
+	NoteEvaluation to ListeEvaluation
+}
+relationship OneToMany {
+	ListeEvaluation to Epreuve
+}
+relationship OneToMany {
+	Epreuve to NoteEvaluation
+}
+relationship OneToMany {
+	Epreuve to SalleCours
+}
+relationship OneToMany {
+	NoteEvaluation to Matiere
+}
+relationship OneToMany {
+	MatiereCoef to Matiere
+}
+relationship OneToMany {
+	PersonnelAdministratif to Retard
+}
+relationship OneToMany {
+	Enseignant to Retard
+}
+relationship OneToMany {
+	Eleve to Retard
+}
+relationship OneToMany {
+	PersonnelAdministratif to Abscence
+}
+relationship OneToMany {
+	Enseignant to Abscence
+}
+relationship OneToMany {
+	Eleve to Abscence
+}
+relationship OneToMany {
+	Eleve to Punition
+}
+relationship OneToMany {
+	ProgrammeCours to ProgrammeCours
+}
+relationship OneToMany {
+	ProgrammeCours to SalleCours
+}
+relationship OneToMany {
+	DecoupageHoraire to DecoupageHoraire
+}
+relationship OneToMany {
+	Matiere to ProgrammeCours
+}
+relationship OneToOne {
+	EmploiDuTempsSalleCours to Matiere,
+	EmploiDuTempsSalleCours to DecoupageHoraire
+}
+relationship OneToMany {
+	Scolarite to NiveauEtude
+}
+relationship OneToMany {
+	RayonBibliotheque to RayonBibliotheque
+}
+relationship OneToMany {
+	RayonBibliotheque to Document
+}
+relationship OneToMany {
+	LocationDocument to Document 
+}
+relationship OneToOne {
+	LocationDocument to RetourDocument
+}
+relationship OneToMany {
+	Bibliotheque to RayonBibliotheque
+}
+relationship OneToMany {
+	Scolarite to Tranches
+}
+relationship OneToMany {
+	AnneeScolaire to Scolarite
+}
+relationship OneToMany {
+	Etablissement to Succursale
+}
+relationship OneToMany {
+	Succursale to AnneeScolaire
+}
+relationship OneToMany {
+	Succursale to Bibliotheque
+}
+relationship OneToMany {
+	Succursale to Caisse
+}
+relationship OneToMany {
+	Succursale to PersonnelAdministratif
+}
+relationship OneToMany {
+	Succursale to Eleve
+}
+relationship OneToMany {
+	Succursale to Enseignant
+}
+relationship OneToMany {
+	Equipement to Equipement
+}
+relationship OneToMany {
+	Equipement to Logistique
+}
+relationship OneToMany {
+	Succursale to Logistique
+}
+relationship OneToOne {
+	SalleCours to Enseignant
+}
+relationship OneToMany {
+	Tranches to Paiement
+}
+relationship OneToMany {
+	ActiviteExtraScolaire to ParticipantActiviteExtraScolaire
+}
+relationship OneToOne {
+	ParticipantActiviteExtraScolaire to Eleve
+}
+relationship OneToOne {
+	NiveauEtude to ConseilClasse
+}
+relationship OneToMany {
+	PresenceReunion to ParentEleve
+}
+relationship OneToMany {
+	ReunionParentEleve to ParentEleve
+}
+relationship OneToMany {
+	EtablissementComposant to ListeAdditif
+}
+relationship OneToMany {
+	EtablissementComposant to ListeAdditif
+}
+relationship OneToMany {
+	ListeAdditif to ListeEvaluation
+}
+relationship OneToOne {
+	Enseignant to Salaire
+}
+relationship OneToOne {
+	Enseignant to Contrat
+}
