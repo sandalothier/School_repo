@@ -1,94 +1,241 @@
+/**
+ * SituationMatrimoniale entity.
+ * @author sanda
+ * Cette classe permet de classifier les personne suivant leur situation matrimoniale
+ * elle permet également de calculer les retenues suivant l'IRPP et la cotisation
+ */
 enum SituationMatrimoniale {
 	MARIE, CELIBATAIRE, DIVORCE, VEUF, CONCUBINAGE
 }
+/**
+ * TypeDeContrat entity.
+ * @author sanda
+ * Cette classe permet de voir les différents type de contrat qui existe dans 
+ * l'entreprise et de créer les méthodes qui permet d'envoyer les notifications
+ * en fonction des échéances
+ */
 enum TypeDeContrat {
 	CONTRACTUEL, DUREE_DETERMINEE, DUREE_INDETERMINEE, HORS_BUDGET
 }
+/**
+ * TypeDocument entity.
+ * @author sanda
+ * Cette classe permet de classifier les documents dans la bibliothèque et pouvoir suivre
+ * les prêts ou les locations qui vont avec.
+ */
 enum TypeDocument {
 	LIVRE, MEMOIRE, RECEUIL, ANNALE, BROCHURE, DICTIONNAIRE, ENCYCLOPEDIE
 }
+/**
+ * EtatDocument entity.
+ * @author sanda
+ * Cette classe permet de classifier les documents dans la bibliothèque 
+ * en précisant l'état dans lequel l'utilisateur a ramené.
+ */
 enum EtatDocument {
 	BON, USE, SALI
 }
+/**
+ * ModePaiement entity.
+ * @author sanda
+ * Cette classe permet de répertorier le mode de paiement suivant lequel le paiement 
+ * a été éffectué. Et permet de vérifier le reçu qui fait office de vérification.
+ */
 enum ModePaiement {
 	CAISSE, PAIEMENT_ELECTONIQUE
 }
+/**
+ * Statut entity.
+ * @author sanda
+ * Cette classe permet de classer les élèves suivant leur statuts pour mieux préparer
+ * la reussite implémenter la décision du conseil de classe, et afficher les statistiques
+ * en fonction des élèves qui se trouve dans la classe et par niveau.
+ */
 enum Statut {
 	NOUVEAU, DOUBLANT
 }
 /**
+ * Client entity.
+ * @author sanda
+ * Cette table represente l'ensemble des clients de l'établissement il permettra de voir les créances
+ * que l'établissement a vis-à-vis des clients et les commandes qui reste à livré.
+ */
+entity Client {
+    nomClient String required,
+	adresseClient String,
+	logo ImageBlob,
+	contactGsmClient String required,
+	email String,
+	bp String
+}
+/**
+ * Fournisseur entity.
+ * @author sanda
+ * Cette table represente l'ensemble des fournisseurs de l'établissement il permettra de voir les dettes
+ * que l'établissement a vis-à-vis des clients et les commandes qui reste à être livré.
+ */
+entity Fournisseur {
+    nomFournisseur String required,
+	adresseFournisseur String,
+	logo ImageBlob,
+	contactGsmFournisseur String required,
+	email String,
+	bp String
+}
+/**
+ * Achat entity.
+ * @author sanda
+ * Cette table represente l'ensemble des achats que l'étabissemenr 
+ * à éffectué au cours de l'année scolaire
+ */
+entity Achat {
+    dateAchat LocalDate  required,
+	descriptionAchat String,
+	echeance LocalDate
+}
+/**
+ * Bulletin entity.
+ * @author sanda
+ * Cette classe permet d'établir les bulletin de classe des élèves. Il va comporter:
+ * - Une méthode( requête pour l'importation des notes ou des moyens devant faire l'objet
+ * 		de note de classe ou de composition)
+ * - Une méthode pour la classification des élèves par matière
+ * - Une méthode pour l'appréciation par matière
+ * - Une méthode pour le calcul de la moyenne par matière
+ * - Une méthode pour le calcul de la moyenne de la classe
+ * - Une méthode pour le calcul de l'élève 
+ * - Une méthode pour l'appréciation du travail de l'élève.
+ */
+entity Bulletin {
+    refBulletin String
+
+}
+/**
+ * DetailAchat entity.
+ * @author sanda
+ * Cette table represente l'ensemble des achats éffectués 
+ */
+entity DetailAchat {
+    intitule String  required,
+	unite String  required,
+	quantite Double  required,
+	prixUnitaire Double  required,
+	montant Double  required,
+	remise Double
+}
+/**
+ * Vente entity.
+ * @author sanda
+ * Cette table represente l'ensemble des ventes des clients de l'établissement
+ */
+entity Vente {
+    dateVente LocalDate,
+	descriptionVente String,
+	echeance LocalDate
+}
+/**
+ * DetailVente entity.
+ * @author sanda
+ * Cette table represente l'ensemble des clients de l'établissement
+ * - Une méthode pour le calcul des TVA
+ * - Une méthode pour la calcul du montant par article.
+ * - Une méthode pour le calcul de la facture générale.
+ */
+entity DetailVente {
+    intitule String required,
+	unite String required,
+	quantite Double required,
+	prixUnitaire Double required,
+	remise Double
+}
+/**
+ * Reglement entity.
+ * @author sanda
+ * Cette table represente l'ensemble des règlements éffectués
+ * - Une méthode pour le calcul des soldes
+ */
+entity Reglement {
+    dateReglement LocalDate required,
+	montantReglement Double required,
+	refReglement String required
+}
+/**
  * Etablissement entity.
  * @author sanda
- * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
- à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
- le Demandé
+ * Cette table inscrit les référence de l'établissement qui s'est procuré l'application
  */
 entity Etablissement {
-    nomEtablissement String,
-	logo String,
-	responsable String,
-	email String,
+    nomEtablissement String required,
+	logo String  required,
+	responsable String  required,
+	email String  required,
 	devise String
 }
 /**
  * Succursale entity.
  * @author sanda
- * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
- à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
- le Demandé
+ * se sont l'ensemble des établissements portant le même nom que 
+ * l'établissement principal et qui se trouve dans des endroits distincts
  */
 entity Succursale {
-	responsableSuccursale String,
-    adresse String,
-	contact String,
+	responsableSuccursale String required,
+    adresse String required,
+	contact String required,
 	gsm String
 }
 /**
  * AnneeScolaire entity.
  * @author sanda
- *   C'est à partir de cette table que yout le processus commence
+ *   C'est cette classe qui initialise toutes les autres classe qui sont liées  à tout
+ * ce qui se passe au cours d'une année scolaire. Pratiquement tout est lié à une année
+ * scolaire
  */
 entity AnneeScolaire {
-    intituleAnneeScolaire String,
-	debut Date,
-	fin Date
+    intituleAnneeScolaire String required,
+	debutAnnee LocalDate required,
+	finAnnee LocalDate required,
 }
 /**
  * Retard entity.
  * @author sanda
- *   C'est à partir de cette table que yout le processus commence
- */
+ *   C'est cette classe qui permet de prendre des décision en fonction des décisions
+ * du conseil de classe. l'exclusion ou le maintien dépendra 
+ * de cette classe
 entity Retard {
-	jourRetard Date,
+	jourRetard LocalDate,
 	nbreHeure Integer
 }
 /**
  * Abscence entity.
  * @author sanda
- *   C'est à partir de cette table que yout le processus commence
+ *    C'est cette classe qui permet de prendre des décision en fonction des décisions
+ * du conseil de classe. l'exclusion ou le maintien dépendra 
+ * de cette classe
  */
 entity Abscence {
-	jourAbsence Date
+	jourAbsence LocalDate
 }
 /**
  * Punition entity.
  * @author sanda
- *   C'est à partir de cette table que yout le processus commence
+ *   C'est cette classe qui permet de prendre des décision en fonction des décisions
+ * du conseil de classe. l'exclusion ou le maintien dépendra 
+ * de cette classe
  */
 entity Punition {
-	jourPunition Date,
+	jourPunition LocalDate,
     nbreHeurePunition Integer
 }
 /**
  * DecoupageAnneeScolaire entity.
  * @author sanda
  *   C'est l'ensemble des découpage de l'année scolaire pour la plupart du temps elle sont 
- sanctionnées par des évaluations
+ * sanctionnées par des évaluations
  */
 entity DecoupageAnneeScolaire {
     intituleDecoupageAnneeScolaire String,
-	debut Date,
-	fin Date
+	debut LocalDate,
+	fin LocalDate
 }
 /**
  * ProgrammeCours entity.
@@ -96,7 +243,7 @@ entity DecoupageAnneeScolaire {
  * C'est l'ensemble des chapitres avec leur sous chapitre que l'enseignant est censé délivrer au cours d'une année scolaire
  */
 entity ProgrammeCours {
-    intitule String
+    intitule String required,
 }
 /**
  * DecoupageHoraire entity.
@@ -104,13 +251,30 @@ entity ProgrammeCours {
  * C'est le découpage des tranches horaires constituant les unités de cours
  */
 entity DecoupageHoraire {
-	heureDebut Date,
-	heureFin String
+	heureDebut LocalDate required,
+	heureFin String required,
+}
+/**
+ * Inscription entity.
+ * @author sanda
+ * C'est la table qui permet de faire les inscriptions au travers d'un portail il est lié au
+ * méthode de paiement qui s'en suit.
+ */
+entity Inscription {
+	dateInscription LocalDate required,
+	nomInscripteur String required,
+	contact String  required,
+	demandeInscription String,
+	nomInscrit String required,
+	dateNaissance LocalDate required,
+	lieuNaissance String required,
+	document String required
 }
 /**
  * EmploiDuTempsSalleCours entity.
  * @author sanda
- * C'est l'emploi du temps relatif à chaque salle de cours
+ * C'est la table qui permet d'éffectuer les emplois du temps des professeurs pour chaque classe
+ * ceci est effectué une fois par an. cet emploi du temps peut être fait de fàçon automatique
  */
 entity EmploiDuTempsSalleCours {
 	nomHoraire String
@@ -118,13 +282,16 @@ entity EmploiDuTempsSalleCours {
 /**
  * Eleve entity.
  * @author sanda
- *   C'est l'ensemble des titre que peux prendre un personnel
+ *   C'est la table qui comporte l'ensemble des apprenants d'un établissement
+ * - Une méthode qui permet de préciser la classe à laquelle appartient l'élève
+ * - Une méthode qui permet de mettre le statut de l'élève
  */
 entity Eleve {
-    civilite String,
+    civilite String required,
 	nomPersonnel String,
 	prenomsPersonnel String,
-	dateNaissance Date,
+	photo ImageBlob,
+	dateNaissance LocalDate,
 	lieuNaissance String,
 	numeroMatricule String,
 	email String,
@@ -135,7 +302,8 @@ entity Eleve {
 /**
  * ParentEleve entity.
  * @author sanda
- *   C'est l'ensemble des titre que peux prendre un personnel
+ *   C'est l'ensemble des parents d'élève d'un établissement dont les mail sont utilisé pour émettre
+ * les convocations de réunion ou pour envoyer les bulletins
  */
 entity ParentEleve {
     civilite String,
@@ -149,16 +317,22 @@ entity ParentEleve {
 /**
  * Enseignant entity.
  * @author sanda
- *   C'est l'ensemble des titre que peux prendre un personnel
+ * C'est la table qui permet de valider les contrats et désactiver une enseignant quand son contrat
+ * arrive à échéance.
+ * - Méthode pour activer ou desactiver un enseignant en fonction des critère bien définis
+ * - Méthode pour pouvoir avoir accès à application et à être désactivé.
+ * - Méthode pour le calcule des salaires en fonction des taux des absences et des retards
  */
 entity Enseignant {
     civilite String,
 	situationMatrimoniale SituationMatrimoniale,
+	photo ImageBlob,
 	nomPersonnel String,
 	prenomsPersonnel String,
-	dateNaissance Date,
+	photo ImageBlob,
+	dateNaissance LocalDate,
 	lieuNaissance String,
-    typeContrat TypeDeContrat
+    typeContrat TypeDeContrat,
 	numeroMatricule String,
 	email String,
 	bp String,
@@ -166,9 +340,10 @@ entity Enseignant {
 	adresse String
 }
 /**
- * EnteteCommandeFournisseur entity.
+ * Scolarite entity.
  * @author sanda
- * Si l'apprenant est un nouveau le montant des inscriptions apparait
+ * C'est la table qui permet de faire le lien des scolarités et des inscriptionsen fonction des niveaux
+ * Elle est aussi mis en relation avec les tranches pour voir le solde à payer
  */
 entity Scolarite {
     montantScolarite Double,
@@ -177,9 +352,8 @@ entity Scolarite {
 /**
  * Caisse entity.
  * @author sanda
- * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
- à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
- le Demandé
+ * Cette classe permet de répertotier l'ensemble des caisses auxquelles on est doit demander de faire les comptes.
+ * 
  */
 entity Caisse {
     nomCaisse String
@@ -187,66 +361,62 @@ entity Caisse {
 /**
  * Paiement entity.
  * @author sanda
- * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
- à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
- le Demandé
+ * Cette repreésente l'ensemble des paiements éffectué pque ce soit par caisse ou par transfert de fonds.
+ * les référence font foi des versements.
  */
 entity Paiement {
-	modePaiement ModePaiement,
-    datePaiement Date,
-	numeroRecu String,
-	MontantPaiement Double
+	modePaiement ModePaiement required,
+    datePaiement LocalDate required,
+	numeroRecu String required,
+	MontantPaiement Double required
 }
 /**
- * CommandeFournisseur entity.
+ * ParticipantActiviteExtraScolaire entity.
  * @author sanda
- * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
- à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
- le Demandé
+ * Cette table permet de répertorier l'ensemble des activités scolaires et extra scolaires qui peuvent
+ * être piloté ou non par l'administration de l'école.
  */
 entity ParticipantActiviteExtraScolaire {
     interieurEtablissement Boolean,
 	autorisationParentale Boolean
 }
 /**
- * CommandeFournisseur entity.
+ * ReunionParentEleve entity.
  * @author sanda
- * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
- à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
- le Demandé
+ * C'est la table qui recense l'ensemble des convocations que l'administration emet par rapport aux parents
+ * d'élèves et qui permet de faire le point par rapport à la situation global.
  */
 entity ReunionParentEleve {
-    dateReunion Date,
+    dateReunion LocalDate,
 	ordreJour String,
 	rapportReunion String
 }
 /**
- * CommandeFournisseur entity.
+ * PresenceReunion entity.
  * @author sanda
- * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
- à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
- le Demandé
+ * Cette table recense la liste de présence par rapport à une réunion donnée.
  */
 entity PresenceReunion {
+	observation String
     
 }
 /**
- * CommandeFournisseur entity.
+ * ConseilClasse entity.
  * @author sanda
- * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
- à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
- le Demandé
+ * c'est la classe qui permet de faire le point par rapport aux décisions relatives à 
+ * une situation. Elle est convoquée par le premier responsable de l'établissement 
+ * et statue par rapport au travail des élèves.
  */
 entity ConseilClasse {
     moyenneReussite Double,
 	moyenneExclu Double
 }
 /**
- * CommandeFournisseur entity.
+ * ListeAdditif entity.
  * @author sanda
- * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
- à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
- le Demandé
+ * Cette liste les élèves venant d'autre établissements et qui sont censé composé au cours d'un examen.
+ * composé cette classe est en rapport avec la table élève afin d"établir la liste de ceux qui
+ * sont censé composés.
  */
 entity ListeAdditif {
     nom String,
@@ -254,17 +424,15 @@ entity ListeAdditif {
 	statut Statut
 }
 /**
- * CommandeFournisseur entity.
+ * EtablissementComposant entity.
  * @author sanda
- * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
- à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
- le Demandé
+ * c'est la liste des établissements qui sont censé composé avec l'ètablissement concerné.
  */
 entity EtablissementComposant {
     nomEtablissement String
 }
 /**
- * CommandeFournisseur entity.
+ * Salaire entity.
  * @author sanda
  * Le calcul du salaire se fera en faisant le taux horaire fois le volume horaire mensuel - taux horairex nombre d'heure de retard
  */
@@ -273,35 +441,39 @@ entity Salaire {
 	prime Double
 }
 /**
- * CommandeFournisseur entity.
+ * Contrat entity.
  * @author sanda
- * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
- à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
- le Demandé
+ * Cette table represente les contrats qui sont signé avec l'esemble du corps enseignant et administratif
  */
 entity Contrat {
 	typeContrat TypeDeContrat,
-	dateDebutContrat Date,
-	dateFinContrat Date
+	dateDebutContrat LocalDate,
+	LocalDateFinContrat LocalDate
+}
+/**
+ * BulletinPaie entity.
+ * @author sanda
+ * Cette table repertorie l'ensemble des bulletins que l'administration est censé délivré
+ * à son administration.
+ */
+entity BulletinPaie {
+	dateEmission LocalDate,
+	refBulletin String
 }
 /**
  * Tranches entity.
  * @author sanda
- * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
- à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
- le Demandé
+ * Cette table permet de cinder la scolarité en plusieurs tranches et qui deviennent exigible à l'écheance
  */
 entity Tranches {
-    datePaiement Date,
+    datePaiement LocalDate,
 	nomTranche String,
 	montant Double
 }
 /**
  * Bibliotheque entity.
  * @author sanda
- * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
- à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
- le Demandé
+ * Cette table représente les bibliothèque qui existe dans l'établissement.
  */
 entity Bibliotheque {
     nomBibliotheque String
@@ -309,9 +481,7 @@ entity Bibliotheque {
 /**
  * RayonBibliotheque entity.
  * @author sanda
- * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
- à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
- le Demandé
+ * Cette la constitution de la bibliothèque en fonction des du bbibliotécaire
  */
 entity RayonBibliotheque {
     nomRayon String,
@@ -320,21 +490,17 @@ entity RayonBibliotheque {
 /**
  * ActiviteExtraScolaire entity.
  * @author sanda
- * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
- à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
- le Demandé
+ * Ce sont les activité extrat scolaire que peut mener un etablissement
  */
 entity ActiviteExtraScolaire {
-    dateActivite Date,
+    dateActivite LocalDate,
 	lieu String,
 	participation Integer
 }
 /**
  * Logistique entity.
  * @author sanda
- * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
- à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
- le Demandé
+ * C'est le patrimoine de l'etablissement
  */
 entity Logistique {
     quantite Integer
@@ -342,9 +508,7 @@ entity Logistique {
 /**
  * Equipement entity.
  * @author sanda
- * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
- à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
- le Demandé
+ * C'est l'ensemble des articles que possède où qui passe par l'etablissement
  */
 entity Equipement {
     nomEquipement String
@@ -352,9 +516,7 @@ entity Equipement {
 /**
  * Document entity.
  * @author sanda
- * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
- à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
- le Demandé
+ * C'est l'ensemble des document qui sont dans la bibliothèque
  */
 entity Document {
 	refBibliotheque String,
@@ -362,29 +524,26 @@ entity Document {
 	titre String,
 	auteur String,
 	edition String,
-	annee Date
+	annee LocalDate
 }
 /**
  * LocationDocument entity.
  * @author sanda
- * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
- à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
- le Demandé
+ * c'est la procédure par laquelle un bibliothécaire met à la disposition des locataires, 
+ * les documents présent dans la bbibliothèque.
  */
 entity LocationDocument {
-    dateLocation Date,
+    dateLocation LocalDate,
 	duree Integer,
-	dateRetour Date
+	dateRetour LocalDate
 }
 /**
  * RetourDocument entity.
  * @author sanda
- * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
- à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
- le Demandé
+ * C'est la procédure inverse de la location
  */
 entity RetourDocument {
-    dateRetour Date,
+    dateRetour LocalDate,
 	etatDocument EtatDocument,
 	penalite String,
 	valideRetour Boolean
@@ -392,16 +551,17 @@ entity RetourDocument {
 /**
  * PersonnelAdministratif entity.
  * @author sanda
- *   C'est l'ensemble des titre que peux prendre un personnel
+ *   C'est du personnel de l'établissement autre que les enseignants
  */
 entity PersonnelAdministratif {
     civilite String,
 	nomPersonnel String,
 	prenomsPersonnel String,
-	dateNaissance Date,
+	dateNaissance LocalDate,
 	lieuNaissance String,
+	photo ImageBlob,
     situationMatrimoniale SituationMatrimoniale,
-    typeContrat TypeDeContrat
+    typeContrat TypeDeContrat,
 	numeroMatricule String,
 	email String,
 	bp String,
@@ -411,7 +571,7 @@ entity PersonnelAdministratif {
 /**
  * Matiere entity.
  * @author sanda
- *   C'est l'ensemble des titre que peux prendre un personnel
+ *   C'est l'ensemble des cours dispensés dans un établissement.
  */
 entity Matiere {
     intituleMatiere String
@@ -419,7 +579,7 @@ entity Matiere {
 /**
  * Cours entity.
  * @author sanda
- *   C'est l'ensemble des titre que peux prendre un personnel
+ *   C'est des chapitres qui sont dispensés par un professeur
  */
 entity Cours {
     titreCours String,
@@ -429,9 +589,7 @@ entity Cours {
 /**
  * Epreuve entity.
  * @author sanda
- * Cette table represente les demande d'explication que l'on obtient suite à une incohérence ou
- à une insubordination. Il sera en lien avec la table Personnel OneToMany pour le demandeur et
- le Demandé
+ * C'est ce qui fait l'objet de composition
  */
 entity Epreuve {
     epreuve String
@@ -440,27 +598,36 @@ entity Epreuve {
  * SalleClasse entity.
  * @author sanda
  *   C'est le batiment physique faisant office de lieu où les cours sont dispensés
- Agora 500, amphi 1000, salle socrate, laboratoire
+ * Agora 500, amphi 1000, salle socrate, laboratoire
  */
 entity SalleClasse {
     nomClasse String
 }
 /**
- * SalleCours entity.
+ * SalleClasse entity.
  * @author sanda
- *   C'est le niveau d'étude qui regroupe certe les élèves d'un même niveau mais 
- aussi faisant les cours ensemble et ayant les mêmes professeurs
- exemple: 5A, 2CD1, 3année de droit etc
+ *   C'est le batiment physique faisant office de lieu où les cours sont dispensés
+ * Agora 500, amphi 1000, salle socrate, laboratoire
  */
-entity SalleCours {
-    nomsalleCours String,
-	effectifMax Integer,
-	nombreTableBanc Integer
+entity SalleClasse {
+    nomClasse String
+}
+/**
+ * DemandePermission entity.
+ * @author sanda
+ *   C'est le nombre de jour qu'une personne est censé s'absenter cette classe peut faire
+ * l'objet de congé déductible au cas où il s'agit d'un enseignant ou du personnel adminisratif
+ */
+entity DemandePermission {
+    datePermission LocalDate,
+	motifPermission String,
+	dureePermission Integer,
+	permissionAccorde Boolean
 }
 /**
  * NiveauEtude entity.
  * @author sanda
- *   C'est l'ensemble des niveau qui existe dans une structure
+ *   C'est l'ensemble des niveau qui existe dans le cursus scolaire
  exemple: CEI1, CP1,CM1, Terminale, Première année droit etc
  */
 entity NiveauEtude {
@@ -469,7 +636,8 @@ entity NiveauEtude {
 /**
  * ListeEvaluation entity.
  * @author sanda
- *   C'est l'ensemble des titre que peux prendre un personnel
+ *   C'est l'ensemble des évaluations que l'nspection ou l'adminitration à décider d'imposer
+ * à ces apprenants à l'exemption des intérrogations.
  */
 entity ListeEvaluation {
     intituleMatiere String
@@ -477,7 +645,7 @@ entity ListeEvaluation {
 /**
  * MatiereCoef entity.
  * @author sanda
- *   C'est l'ensemble des titre que peux prendre un personnel
+ *   C'est le coefficcient des matières par niveau d'étude.
  */
 entity MatiereCoef {
     coef Double
@@ -485,7 +653,7 @@ entity MatiereCoef {
 /**
  * NoteEvaluation entity.
  * @author sanda
- *   C'est l'ensemble des titre que peux prendre un personnel
+ *   C'est la note que l'élève à obtenu à l'issue d'une évaluation.
  */
 entity NoteEvaluation {
     note Double,
@@ -494,14 +662,32 @@ entity NoteEvaluation {
 relationship OneToMany {
 	AnneeScolaire to DecoupageAnneeScolaire
 }
-relationship OneToMany {
+relationship OneToOne {
 	User to Etablissement
 }
 relationship OneToOne {
 	User to Authority
 }
 relationship OneToOne {
+	Enseignant to DemandePermission
+}
+relationship OneToOne {
+	ParentEleve to DemandePermission
+}
+relationship OneToOne {
+	PersonnelAdministratif to DemandePermission
+}
+relationship OneToOne {
+	Eleve to DemandePermission
+}
+relationship OneToOne {
 	Succursale to ActiviteExtraScolaire
+}
+relationship OneToOne {
+	Enseignant to BulletinPaie
+}
+relationship OneToOne {
+	PersonnelAdministratif to BulletinPaie
 }
 relationship OneToMany {
 	AnneeScolaire to PersonnelAdministratif
@@ -513,10 +699,49 @@ relationship OneToMany {
 	AnneeScolaire to Enseignant
 }
 relationship OneToMany {
+	AnneeScolaire to EtablissementComposant
+}
+relationship OneToMany {
 	ParentEleve to Eleve
 }
 relationship OneToMany {
+	Enseignant to Contrat
+}
+relationship OneToMany {
+	PersonnelAdministratif to Contrat
+}
+relationship OneToMany {
+	Salaire to PersonnelAdministratif
+}
+relationship OneToMany {
 	Eleve to ParentEleve
+}
+relationship OneToMany {
+	Fournisseur to Vente
+}
+relationship OneToMany {
+	Client to Achat
+}
+relationship OneToMany {
+	Achat to Reglement
+}
+relationship OneToMany {
+	Vente to Reglement
+}
+relationship OneToMany {
+	AnneeScolaire to Achat
+}
+relationship OneToMany {
+	AnneeScolaire to Vente
+}
+relationship OneToMany {
+	Achat to DetailAchat
+}
+relationship OneToMany {
+	Vente to DetailVente
+}
+relationship OneToMany {
+	Salaire to Enseignant
 }
 relationship OneToMany {
 	Eleve to SalleCours
@@ -612,11 +837,22 @@ relationship OneToMany {
 	Matiere to ProgrammeCours
 }
 relationship OneToOne {
-	EmploiDuTempsSalleCours to Matiere,
+	EmploiDuTempsSalleCours to Matiere
+}
+relationship OneToOne {
 	EmploiDuTempsSalleCours to DecoupageHoraire
 }
 relationship OneToMany {
 	Scolarite to NiveauEtude
+}
+relationship OneToOne {
+	Inscription to AnneeScolaire
+}
+relationship OneToOne {
+	Inscription to NiveauEtude
+}
+relationship OneToMany {
+	Inscription to Scolarite
 }
 relationship OneToMany {
 	RayonBibliotheque to RayonBibliotheque
@@ -693,15 +929,12 @@ relationship OneToMany {
 relationship OneToMany {
 	EtablissementComposant to ListeAdditif
 }
-relationship OneToMany {
-	EtablissementComposant to ListeAdditif
-}
-relationship OneToMany {
-	ListeAdditif to ListeEvaluation
-}
-relationship OneToOne {
-	Enseignant to Salaire
-}
-relationship OneToOne {
-	Enseignant to Contrat
-}
+// Set pagination options
+paginate Fournisseur, Achat, Vente, Reglement, AnneeScolaire, Retard, Abscence, Punition, Inscription, Eleve, ParentEleve, Enseignant, Scolarite, Caisse, Paiement, ReunionParentEleve, EtablissementComposant, Tranches, Bibliotheque, RayonBibliotheque, ActiviteExtraScolaire, Equipement, Document, LocationDocument, RetourDocument, PersonnelAdministratif, SalleClasse, Matiere, SalleCours, ListeEvaluation, MatiereCoef, NoteEvaluation  with infinite-scroll
+paginate DetailAchat, DetailVente, Etablissement, Succursale, DecoupageAnneeScolaire, ProgrammeCours, DecoupageHoraire, EmploiDuTempsSalleCours, ParticipantActiviteExtraScolaire, PresenceReunion, ConseilClasse, ListeAdditif, Salaire, Contrat, BulletinPaie, Logistique, Cours, Epreuve, NiveauEtude with pagination
+// Use Data Transfert Objects (DTO)
+ dto Paiement, DemandePermission,Inscription  with mapstruct
+// Set service options to all except few
+service all with serviceImpl except Fournisseur, Client
+// Set an angular suffix
+// angularSuffix * with mySuffix
